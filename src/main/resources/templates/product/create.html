@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="/layout :: head">
+    <meta charset="UTF-8">
+    <title>Create Computer</title>
+</head>
+<body>
+<h3>Add Computer</h3>
+<p>
+    <a th:href="@{/products}">
+        Back to products list
+    </a>
+</p>
+<div id="form">
+    <form th:action="@{/products/create}" th:object="${product}" method="POST" novalidate="novalidate">
+        <input type="hidden" th:field="*{id}"/>
+
+        <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" th:field="*{name}"/>
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></div>
+        </div>
+
+        <div>
+            <label for="user_trading">Id_Trading:</label>
+            <input type="text" id="user_trading" th:field="*{user_trading}"/>
+            <div th:if="${#fields.hasErrors('id_trading')}" th:errors="*{user_trading}" class="error"></div>
+        </div>
+
+        <div>
+            <label for="dayTrading">Day Trading</label>
+            <input type="text" id="dayTrading" th:field="*{dayTrading}"/>
+            <div th:if="${#fields.hasErrors('dayTrading')}" th:errors="*{dayTrading}" class="error"></div>
+        </div>
+
+        <div>
+            <label for="province">Type</label>
+            <select id="province" th:field="*{type}">
+                <option th:each="p : ${types}" th:value="${p.id}" th:text="${p.name}"></option>
+            </select>
+            <div th:if="${#fields.hasErrors('type')}" th:errors="*{type}" class="error"></div>
+        </div>
+
+        <div>
+            <label for="area">Area (m2):</label>
+            <input type="text" id="area" th:field="*{area}"/>
+            <div th:if="${#fields.hasErrors('dayTrading')}" th:errors="*{area}" class="error"></div>
+        </div>
+
+        <div>
+            <label for="price">Price:</label>
+            <input type="text" id="price" th:field="*{price}"/>
+            <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="error"></div>
+        </div>
+
+        <input type="submit" value="Save"/>
+    </form>
+
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="/layout :: head">
+    <meta charset="UTF-8">
+    <title>List Computers</title>
+</head>
+<body>
+<h3>Show List Tecnology product</h3>
+<p>
+    <a th:href="@{/products/create}">
+        Add new Trading
+    </a>
+</p>
+<p>
+    <a th:href="@{/types}">
+        Types
+    </a>
+</p>
+<div style="margin-bottom: 10px; margin-left: 110px">
+    <form th:action="@{/products/search}" method="get">
+        <label><input type="text" name="search"></label>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>
+<div class="notify">
+    <div th:if="${message}">
+        <span th:text="${message}"></span>
+    </div>
+</div>
+
+<table id = "customers">
+    <thead>
+    <tr>
+        <th>STT</th>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Update</th>
+        <th>Delete</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="p,cStatus : ${products}">
+        <td th:text="${p.getId()}"></td>
+        <td th:text="${p.getUser_trading()}"></td>
+        <td th:text="${p.getName()}"></td>
+        <td th:text="${p.getDayTrading()}"></td>
+        <td th:text="${p.getType().getName()}"></td>
+        <td th:text="${p.getPrice()}"></td>
+        <td th:text="${p.getArea()}"></td>
+        <td><a th:href="@{/products/delete/{id}(id=${p.getId()})}">delete</a></td>
+    </tr>
+    </tbody>
+</table>
+<a class="btn btn-primary" th:if="${products.hasPrevious()}"
+   th:href="@{/products(page=${products.number - 1})}">Previous</a>
+<span th:text="${products.number + 1}"></span> | <span th:text="${products.totalPages}"></span>
+<a class="btn btn-primary" th:if="${computers.hasNext()}"
+   th:href="@{/products(page=${products.number + 1})}">Next</a>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>
